@@ -1,0 +1,25 @@
+{
+  "name": "youve-got-mail",
+  "version": "1.0.0",
+  "description": "Simple node messaging application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/Danpickford/15giftsTechTest.git"
+  },
+  "author": "Daniel Pickford",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/Danpickford/15giftsTechTest/issues"
+  },
+  "homepage": "https://gitlab.com/Danpickford/15giftsTechTest#README",
+  "dependencies": {
+    "express": "^4.14.0",
+    "koa-router": "^5.4.0",
+    "sails-mongo": "^0.12.1",
+    "watergate": "0.0.3"
+  }
+}
