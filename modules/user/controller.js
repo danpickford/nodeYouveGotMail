@@ -4,7 +4,7 @@ const parse = require('co-body');
 module.exports = {
 
         * findById() {
-            this.body = yield models.conversation.findOne({
+            this.body = yield models.user.findOne({
                 id: this.params.id,
             });
         },
@@ -12,19 +12,13 @@ module.exports = {
 
         * create() {
             const body = yield parse.json(this);
-            this.body = yield models.conversation.create(body);
+            this.body = yield models.user.create(body);
         },
 
 
         * destroy() {
-            this.body = yield models.conversation.destroy({
+            this.body = yield models.user.destroy({
                 id: this.params.id,
             });
         },
-
-        * update() {
-            const body = yield parse.json(this);
-            this.body = yield yield models.conversation.messages.create(body);
-        },
-
 };

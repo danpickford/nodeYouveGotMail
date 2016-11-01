@@ -4,14 +4,13 @@ const mongoAdapter = require('sails-mongo');
 
 module.exports = {
 
-    baseUrl: process.env.BASE_URL,
     database: {
         adapters: {
             default: mongoAdapter,
             mongo: mongoAdapter,
         },
         connections: {
-            myLocalMongo: {
+            cloudMDBConn: {
                 adapter: 'mongo',
                 module: 'sails-mongo',
                 dbConnectionLimit: 10,
@@ -26,3 +25,5 @@ module.exports = {
             migrate: 'safe',
         },
     }
+    
+};

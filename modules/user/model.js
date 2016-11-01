@@ -4,8 +4,8 @@ const mongo = require('sails-mongo');
 const Waterline = require('waterline');
 
 module.exports = Waterline.Collection.extend({
-    identity: 'message',
-    tableName: 'messages',
+    identity: 'user',
+    tableName: 'users',
     adapter: mongo,
     connection: 'cloudMDBConn',
     schema: true,
@@ -13,8 +13,6 @@ module.exports = Waterline.Collection.extend({
     autoUpdatedAt: true,
     autoPK: true,
     attributes: {
-        date: 'datetime',
-        seen: 'boolean',
-        subject: 'string'
+        username: 'string'
     },
 });
