@@ -2,10 +2,11 @@
 
 const config = require('../../modules/dal/config');
 const database = require('../../modules/dal/database');
+const logger = require('../../modules/logger');
 
 module.exports = {
 
-    init(service) {
+    init(service, initWaterlineComplete) {
         const orm = database.connect();
         try {
             const user = require(`../../modules/user/model`);
@@ -34,7 +35,7 @@ module.exports = {
                     throw new Error(`Error loading routes: ${err.message}`);
                 }
             }
-
+            initWaterlineComplete.resolve();
         });
     },
 };

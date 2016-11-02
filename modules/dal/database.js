@@ -18,7 +18,7 @@ module.exports = {
         models = modelsToLoad;
         return models;
     },
-
+    
     models: () => models,
 
 };

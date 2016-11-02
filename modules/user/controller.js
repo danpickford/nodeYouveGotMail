@@ -19,7 +19,7 @@ module.exports = {
                 username: body.username
             }).then(function (existingUsers) {
                 if (existingUsers.length > 0) {
-                    return '{ "INFO": "Username already exists choose another."}';
+                    return JSON.parse('{ "INFO": "Username already exists choose another."}');
                 } else {
                     return models.user.create(body);
                 }
@@ -29,7 +29,7 @@ module.exports = {
         },
             
         * getAll() {
-          this.body = "All";
+          this.body = yield models.user.find();
         },
 
         * destroy() {
@@ -40,14 +40,14 @@ module.exports = {
             }).then(function (users) {
 
                 if (users.length == 0) {
-                    return '{ "INFO": "No users found by that name."}';
+                    return JSON.parse('{ "INFO": "No users found by that name."}');
                 }
 
                 var userName = users[0].username;
                 users.forEach(user => {
                     user.destroy();
                 });
-                return '{ "INFO": "Destroyed: ' + users.length + ' ' + userName + '."}';
+                return JSON.parse('{ "INFO": "Destroyed: ' + users.length + ' ' + userName + '."}');
             })
         },
 };
