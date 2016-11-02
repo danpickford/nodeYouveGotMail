@@ -23,8 +23,7 @@ server.init(app);
 
 const port = process.env.PORT || 5000;
 
-app.listen(port);
-
+if (!module.parent) app.listen(port);
 logger.log('info', `server running at http://localhost:${port}`);
 
 module.exports = app;

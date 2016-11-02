@@ -27,7 +27,10 @@ module.exports = {
 
 
         },
-
+            
+        * getAll() {
+          this.body = "All";
+        },
 
         * destroy() {
             logger.log('debug', `Destroy user ${this.params.id}`);
