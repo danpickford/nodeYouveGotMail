@@ -1,13 +1,12 @@
 const logger = require('../../modules/logger');
 const models = require('../../modules/dal/database').models();
 const parse = require('co-body');
+const userHelper = require('../../modules/service/helpers/conversation');
 
 module.exports = {
 
         * findByUserName() {
-            this.body = yield models.user.findOne().where({
-                username: this.params.id
-            });
+            this.body = yield userHelper.findUserByName(this.params.id);
         },
 
 
