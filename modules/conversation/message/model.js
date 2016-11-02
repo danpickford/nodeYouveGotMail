@@ -13,9 +13,14 @@ module.exports = Waterline.Collection.extend({
     autoUpdatedAt: true,
     autoPK: true,
     attributes: {
+        from: {
+            model: 'user'
+        },
+        to: {
+            model: 'user'
+        },
         date: 'datetime',
         seen: 'boolean',
-        subject: 'string',
-        messageText: ''
+        messageText: 'string'
     },
 });

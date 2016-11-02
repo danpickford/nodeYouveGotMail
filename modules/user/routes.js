@@ -9,7 +9,7 @@ const apiRoot = '/user';
 
 module.exports = (server) => {
     router
-        .get(`${apiRoot}/:id`, controller.findById)
+        .get(`${apiRoot}/:id`, controller.findByUserName)
         .del(`${apiRoot}/:id`, controller.destroy)
         .post(`${apiRoot}/add`, controller.create)
     server.use(router.routes());

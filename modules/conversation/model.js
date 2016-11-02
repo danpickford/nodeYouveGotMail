@@ -21,5 +21,5 @@ module.exports = Waterline.Collection.extend({
         },
         datestarted: 'datetime',
         subject: 'string'
-    },
+    },    
 });
