@@ -93,7 +93,6 @@ Example request body:
 {
   "from": "Joe Fox",
   "to": "Kathleen Kelly",
-  "subject": "Dear Friend",
   "message": "You know, sometimes I wonder..."
 }
 */

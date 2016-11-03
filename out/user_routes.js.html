@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Youve Got Mail Module: userModel</title>
+	<title>Youve Got Mail Source: user/routes.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -60,100 +60,40 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
 			
 
-	<h1 class="page-title">Module: userModel</h1>
+		<h1 class="page-title">Source: user/routes.js</h1>
+    
 <section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">'use strict';
 
-<header>
-    
-</header>
+const router = require('koa-router')();
 
+const controller = require('./controller');
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>User Model</p></div>
-        
+const apiRoot = '/user';
 
-        
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="user_model.js.html">user/model.js</a>,
-				 <a href="user_model.js.html#sunlight-1-line-6">line 6</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
+/**
+ * User Routes
+ *
+ * @module userRoutes
+ */
+module.exports = (server) => {
+    router
+        .get(`${apiRoot}`, controller.getAll)
+        .get(`${apiRoot}/:id`, controller.findByUserName)
+        .del(`${apiRoot}/:id`, controller.destroy)
+        .post(`${apiRoot}/add`, controller.create)
+    server.use(router.routes());
+};</pre>
+    </article>
 </section>
+
 
 
 
@@ -163,10 +103,6 @@
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>

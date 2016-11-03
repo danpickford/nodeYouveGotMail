@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Youve Got Mail Module: userModel</title>
+	<title>Youve Got Mail Source: service/index.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -60,100 +60,67 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
 			
 
-	<h1 class="page-title">Module: userModel</h1>
+		<h1 class="page-title">Source: service/index.js</h1>
+    
 <section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">'use strict';
 
-<header>
-    
-</header>
-
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>User Model</p></div>
-        
-
-        
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
+const config = require('../../modules/dal/config');
+const database = require('../../modules/dal/database');
+const logger = require('../../modules/logger');
 
 
+/**
+ * App
+ *
+ * @module app
+ */
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="user_model.js.html">user/model.js</a>,
-				 <a href="user_model.js.html#sunlight-1-line-6">line 6</a>
-			</li>
-		</ul>
-	</dd>
-	
+module.exports = {
 
-	
+    init(service, initWaterlineComplete) {
+        const orm = database.connect();
+        try {
+            const user = require(`../../modules/user/model`);
+            const conversation = require(`../../modules/conversation/model`);
+            const message = require(`../../modules/conversation/message/model`);
 
-	
+            orm.loadCollection(user);
+            orm.loadCollection(conversation);
+            orm.loadCollection(message);
+        } catch (err) {
+            if (err.code !== 'MODEL_LOAD_FAILURE') {
+                throw new Error(`Error loading models: ${err.message}`);
+            }
+        }
 
-	
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
+        orm.initialize(config.database, (er, models) => {
+            if (er) throw er;
+            database.loadModels(models.collections);
+            try {
+                const conversationRoutes = require(`../../modules/conversation/routes`);
+                const userRoutes = require(`../../modules/user/routes`);
+                conversationRoutes(service);
+                userRoutes(service);
+            } catch (err) {
+                if (err.code !== 'ROUTE_LOAD_FAILURE') {
+                    throw new Error(`Error loading routes: ${err.message}`);
+                }
+            }
+            initWaterlineComplete.resolve();
+        });
+    },
+};</pre>
+    </article>
 </section>
+
 
 
 
@@ -163,10 +130,6 @@
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>

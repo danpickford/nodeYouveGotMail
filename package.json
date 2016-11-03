@@ -21,7 +21,9 @@
     "co-body": "^4.2.0",
     "dotenv": "^2.0.0",
     "koa": "^1.2.4",
+    "koa-common": "^1.2.0",
     "koa-router": "^5.4.0",
+    "koa-router-static": "^1.2.0",
     "q": "^1.4.1",
     "sails-mongo": "^0.12.1",
     "waterline": "^0.11.5",
@@ -32,6 +34,7 @@
     "chai-http": "^1.0.0",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
+    "koa-common": "^1.2.0",
     "supertest": "^2.0.1"
   }
 }

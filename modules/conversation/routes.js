@@ -6,7 +6,11 @@ const controller = require('./controller');
 
 const apiRoot = '/conversation';
 
-
+/**
+ * Conversation Routes
+ *
+ * @module conversationRoutes
+ */
 module.exports = (server) => {
     router
         .get(`${apiRoot}/:id`, controller.findByUserName)

@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Youve Got Mail Module: userModel</title>
+	<title>Youve Got Mail Source: user/controller.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -60,100 +60,89 @@
 <div class="row">
 
 	
-	<div class="col-md-8">
+	<div class="col-md-12">
 	
 		<div id="main">
 			
 
-	<h1 class="page-title">Module: userModel</h1>
+		<h1 class="page-title">Source: user/controller.js</h1>
+    
 <section>
-
-<header>
-    
-</header>
-
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>User Model</p></div>
-        
-
-        
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">const logger = require('../../modules/logger');
+const models = require('../../modules/dal/database').models();
+const parse = require('co-body');
+const userHelper = require('../../modules/service/helpers/conversation');
 
 
+/**
+ * User Controller
+ *
+ * @module userController
+ */
+module.exports = {
+/** Find a user by username.
+@param username {string} - GET /user/username
+*/
+        * findByUserName() {
+            this.body = yield userHelper.findUserByName(this.params.id);
+        },
 
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="user_model.js.html">user/model.js</a>,
-				 <a href="user_model.js.html#sunlight-1-line-6">line 6</a>
-			</li>
-		</ul>
-	</dd>
-	
+/** Create a new user.
+@param JSON {string} - POST /user/create
+Example request body:
+{
+  "username": "Joe Fox"
+}
+*/
+        * create() {
+            const body = yield parse.json(this);
 
-	
+            logger.log('debug', `Create user ${body.username}`);
 
-	
+            this.body = yield models.user.find().where({
+                username: body.username
+            }).then(function (existingUsers) {
+                if (existingUsers.length > 0) {
+                    return JSON.parse('{ "INFO": "Username already exists choose another."}');
+                } else {
+                    return models.user.create(body);
+                }
+            });
 
-	
-</dl>
 
+        },
+/** Get all users. GET /user
+*/
+        * getAll() {
+          this.body = yield models.user.find();
+        },
+/** Delete a user by username.
+@param username {string} - DEL /user/username
+*/
+        * destroy() {
+            logger.log('debug', `Destroy user ${this.params.id}`);
 
-        
-    
-    </div>
+            this.body = yield models.user.find().where({
+                username: this.params.id
+            }).then(function (users) {
 
-    
+                if (users.length == 0) {
+                    return JSON.parse('{ "INFO": "No users found by that name."}');
+                }
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
+                var userName = users[0].username;
+                users.forEach(user => {
+                    user.destroy();
+                });
+                return JSON.parse('{ "INFO": "Destroyed: ' + users.length + ' ' + userName + '."}');
+            })
+        },
+};</pre>
+    </article>
 </section>
+
 
 
 
@@ -163,10 +152,6 @@
 
 	<div class="clearfix"></div>
 
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
-		</div>
 	
 
 </div>

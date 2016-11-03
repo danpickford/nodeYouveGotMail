@@ -6,7 +6,11 @@ const controller = require('./controller');
 
 const apiRoot = '/user';
 
-
+/**
+ * User Routes
+ *
+ * @module userRoutes
+ */
 module.exports = (server) => {
     router
         .get(`${apiRoot}`, controller.getAll)

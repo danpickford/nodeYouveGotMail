@@ -3,7 +3,7 @@ var request = require('supertest').agent(app.listen());
 var chai = require('chai');
 var should = chai.should();
 
-describe('User API', function () {
+describe('Conversation API', function () {
 
     before(function (done) {
         this.timeout(5000); //for train coding.

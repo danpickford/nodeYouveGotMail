@@ -4,6 +4,13 @@ const config = require('../../modules/dal/config');
 const database = require('../../modules/dal/database');
 const logger = require('../../modules/logger');
 
+
+/**
+ * App
+ *
+ * @module app
+ */
+
 module.exports = {
 
     init(service, initWaterlineComplete) {

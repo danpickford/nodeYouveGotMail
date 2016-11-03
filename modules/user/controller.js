@@ -3,13 +3,27 @@ const models = require('../../modules/dal/database').models();
 const parse = require('co-body');
 const userHelper = require('../../modules/service/helpers/conversation');
 
-module.exports = {
 
+/**
+ * User Controller
+ *
+ * @module userController
+ */
+module.exports = {
+/** Find a user by username.
+@param username {string} - GET /user/username
+*/
         * findByUserName() {
             this.body = yield userHelper.findUserByName(this.params.id);
         },
 
-
+/** Create a new user.
+@param JSON {string} - POST /user/create
+Example request body:
+{
+  "username": "Joe Fox"
+}
+*/
         * create() {
             const body = yield parse.json(this);
 
@@ -27,11 +41,14 @@ module.exports = {
 
 
         },
-            
+/** Get all users. GET /user
+*/
         * getAll() {
           this.body = yield models.user.find();
         },
-
+/** Delete a user by username.
+@param username {string} - DEL /user/username
+*/
         * destroy() {
             logger.log('debug', `Destroy user ${this.params.id}`);
 

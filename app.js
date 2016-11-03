@@ -3,7 +3,7 @@
 require('dotenv').config()
 
 const koa = require('koa');
-
+const common = require('koa-common');
 const app = koa();
 
 const logger = require('./modules/logger');
@@ -11,6 +11,7 @@ const logger = require('./modules/logger');
 var dbInitCompletePromise = require('q').defer();
 app.__dbInitComplete = dbInitCompletePromise.promise;
 
+app.use(common.static(__dirname + '/out'));
 
 app.use(function* errorHandler(next) {
     try {
