@@ -1,7 +1,5 @@
 var app = require('../app');
 var request = require('supertest').agent(app.listen());
-var chai = require('chai');
-var should = chai.should();
 
 describe('Conversation API', function () {
 

@@ -1,7 +1,5 @@
 var app = require('../app');
 var request = require('supertest').agent(app.listen());
-var chai = require('chai');
-var should = chai.should();
 
 describe('User API', function () {
 
@@ -45,9 +43,13 @@ describe('User API', function () {
                 })
                 .expect(200, function (err, res) {
                     if (err) return done(err);
-                    return res.body.username == "James Haywood";
                     done();
-                }).expect('Content-Type', /json/);
+                }).expect('Content-Type', /json/).expect({
+                    "username": "James Haywood",
+                    "createdAt": /./,
+                    "updatedAt": /./,
+                    "id": /./
+                });
         });
         it('should inform user exists on /user/add/James Haywood POST', function (done) {
             request.post('/user/add')
