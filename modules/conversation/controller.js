@@ -3,8 +3,16 @@ const models = require('../../modules/dal/database').models();
 const parse = require('co-body');
 const conversationHelper = require('../../modules/service/helpers/conversation');
 
-module.exports = {
 
+/**
+ * Conversation Controller
+ *
+ * @module conversationController
+ */
+module.exports = {
+/** Find a conversation for a username.
+@param username {string} - GET /conversation/username
+*/
         * findByUserName() {
                 logger.log('debug', 'Get Conversation');
                 var user = yield models.user.findOne().where({
@@ -22,7 +30,16 @@ module.exports = {
 
             },
 
-
+/** Create a new conversation.
+@param JSON {string} - POST /conversation/create
+Example request body:
+{
+  "from": "Joe Fox",
+  "to": "Kathleen Kelly",
+  "subject": "Dear Friend",
+  "message": "You know, sometimes I wonder..."
+}
+*/
             * create() {
 
                 const body = yield parse.json(this);
@@ -69,7 +86,17 @@ module.exports = {
                     id: this.params.id,
                 });
             },
-                
+
+/** Update a conversation with a new message.
+@param JSON {string} - PUT /conversation
+Example request body:
+{
+  "from": "Joe Fox",
+  "to": "Kathleen Kelly",
+  "subject": "Dear Friend",
+  "message": "You know, sometimes I wonder..."
+}
+*/
         * update() {
             const body = yield parse.json(this);
             logger.log('debug', `Update conversation ${body.conversationId}.`);

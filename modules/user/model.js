@@ -3,6 +3,11 @@
 const mongo = require('sails-mongo');
 const Waterline = require('waterline');
 
+/**
+ * User Model
+ *
+ * @module userModel
+ */
 module.exports = Waterline.Collection.extend({
     identity: 'user',
     tableName: 'users',

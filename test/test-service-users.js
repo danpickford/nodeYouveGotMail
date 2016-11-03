@@ -6,8 +6,18 @@ var should = chai.should();
 describe('Users API', function () {
 
     before(function (done) {
+        this.timeout(5000); //for train coding.
         app.__dbInitComplete.then(function () {
             done();
+        });
+    });
+    describe('Setup', function () {
+        it('Delete user James Haywood DEL', function (done) {
+            request.del('/user/James Haywood')
+                .expect(200, function (err, res) {
+                    if (err) return done(err);
+                    done();
+                }).expect('Content-Type', /json/)
         });
     });
     describe('Test CRUD', function () {
@@ -35,6 +45,7 @@ describe('Users API', function () {
                 })
                 .expect(200, function (err, res) {
                     if (err) return done(err);
+                    return res.body.username == "James Haywood";
                     done();
                 }).expect('Content-Type', /json/);
         });
@@ -62,7 +73,10 @@ describe('Users API', function () {
                 .expect(200, function (err, res) {
                     if (err) return done(err);
                     done();
-                }).expect('Content-Type', /json/).expect({"INFO": "Destroyed: 1 Daniel Pickford."});;
+                }).expect('Content-Type', /json/)
+                .expect({
+                    "INFO": "Destroyed: 1 Daniel Pickford."
+                });;
         });
         describe('Tidy up', function () {
             it('Delete user James Haywood DEL', function (done) {
@@ -70,7 +84,10 @@ describe('Users API', function () {
                     .expect(200, function (err, res) {
                         if (err) return done(err);
                         done();
-                    }).expect('Content-Type', /json/).expect({"INFO": "Destroyed: 1 James Haywood."});
+                    }).expect('Content-Type', /json/)
+                    .expect({
+                        "INFO": "Destroyed: 1 James Haywood."
+                    });
             });
         });
     });
